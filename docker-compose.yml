@@ -1,0 +1,16 @@
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: dbroot
+  nginx:
+    build: Dockerfiles/nginx/.
+    ports:
+      - "80:80"
+    links:
+      - ap 
+  ap:
+    build: Dockerfiles/php-fpm/.
+    volumes:
+      - ./develop/${PROJECT_NAME}:/var/www/html
+    links:
+      - mysql
